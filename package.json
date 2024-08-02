@@ -6,7 +6,9 @@
   "scripts": {
     "start": "webpack-dev-server --open --mode development --port 3000",
     "start-prod": "node app.js",
-    "test": "playwright test",
+    "test:unit": "jest",
+    "test:e2e": "playwright test",
+    "test": "npm run test:unit && npm run test:e2e",
     "test:report": "playwright show-report",
     "eslint": "eslint ./**/*.{js,jsx}",
     "build": "webpack --mode production"
