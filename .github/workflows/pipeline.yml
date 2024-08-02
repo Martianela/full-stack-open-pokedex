@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-   simple_deployment_pipeline:
+  simple_deployment_pipeline:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v4
@@ -16,7 +16,6 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: make build
-        run: npm run build
+        run: npm run test:unit
       - name: running test
         run: npm run test
-    
