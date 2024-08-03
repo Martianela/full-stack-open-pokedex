@@ -1,4 +1,4 @@
-name: Deployment pipeline
+name: Run unit tests
 
 on:
   push:
@@ -15,7 +15,5 @@ jobs:
           node-version: '20'
       - name: Install dependencies
         run: npm install
-      - name: make build
-        run: npm run build
       - name: running test
         run: npm run test:unit

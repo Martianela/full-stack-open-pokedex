@@ -1,0 +1,29 @@
+name: Deploy to Render
+
+on:
+  workflow_run: workflows:["Run unit tests","Playwright Tests"]
+  types: -completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16' # Specify the Node.js version you need
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to Render
+        if: github.ref =='ref/heads/main'
+        env: deploy_url:${{secrets.RENDER_DEPLOY_HOOK}}
+        run: curl "$deploy_url"
