@@ -3,5 +3,5 @@ services:
     name: my-react-app
     env: static
     staticPublishPath: ./dist
-    buildCommand: npm run build
+    buildCommand: npm install && npm run build
     branch: main
