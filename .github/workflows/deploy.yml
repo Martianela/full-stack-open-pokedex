@@ -1,8 +1,10 @@
 name: Deploy to Render
 
 on:
-  workflow_run: workflows:["Run unit tests","Playwright Tests"]
-  types: -completed
+  workflow_run:
+    workflows: ['Run unit tests', 'Playwright Tests']
+    types:
+      - completed # Trigger when both workflows complete
 
 jobs:
   deploy:
@@ -26,4 +28,4 @@ jobs:
       - name: Deploy to Render
         if: github.ref =='ref/heads/main'
         env: deploy_url:${{secrets.RENDER_DEPLOY_HOOK}}
-        run: curl "$deploy_url"
+        run: curl -X POST "$deploy_url"
