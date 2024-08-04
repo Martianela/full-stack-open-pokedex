@@ -2,12 +2,14 @@ name: Deploy to Render
 
 on:
   workflow_run:
-    workflows: ['Run unit tests', 'Playwright Tests']
+    workflows: ['Playwright Tests', 'Run unit tests']
     types:
-      - completed # Trigger when both workflows complete
+      - completed
 
 jobs:
   deploy:
+    if: github.event.pull_request.merged==true && github.event.pull_request.base.ref=='main'
+
     runs-on: ubuntu-latest
 
     steps:
