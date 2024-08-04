@@ -1,4 +1,4 @@
-name: Testing and deplyment
+name: Testing
 
 on:
   push:
@@ -43,29 +43,3 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
-  deployment:
-    needs:
-      - unit_testing
-      - e2e-testing
-    runs-on: ubuntu-latest
-    if: github.event.pull_request.merged==true && github.event.pull_request.base.ref=='main'
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20' # Specify the Node.js version you need
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build project
-        run: npm run build
-
-      - name: Deploy to Render
-        if: github.ref == 'refs/heads/main'
-        env:
-          DEPLOY_URL: ${{ secrets.RENDER_DEPLOY_HOOK }}
-        run: curl -X POST "$DEPLOY_URL"
