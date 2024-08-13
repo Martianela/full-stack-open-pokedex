@@ -9,10 +9,11 @@ jobs:
   unit_testing:
     uses: ./.github/workflows/Unit_testing.yml
 
-  e2e-testing:
+  e2e_testing:
     uses: ./.github/workflows/E2e_testing.yml
 
   installing_dependencies_and_build:
+    needs: [unit_testing, e2e_testing]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -38,8 +39,7 @@ jobs:
         uses: anothrNick/github-tag-action@1.64.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          dry_run: true
+          DRY_RUN: true
 
   deplying_code_to-render:
     needs: [create_versoning]
