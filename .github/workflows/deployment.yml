@@ -6,6 +6,12 @@ on:
       - main
 
 jobs:
+  unit_testing:
+    uses: ./.github/workflows/Unit_testing.yml
+
+  e2e-testing:
+    uses: ./.github/workflows/E2e_testing.yml
+
   installing_dependencies_and_build:
     runs-on: ubuntu-latest
     steps:
